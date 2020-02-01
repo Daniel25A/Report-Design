@@ -14,11 +14,12 @@ namespace Algorithmo_reporte
            
             Page.AgregarTextoCentro("Ingrese el Nombre de la Empresa aqui mismo, esto tendra un salto de linea xd");
             Page.AgregarTextoCentro("Ingrese la Dirección de la Empresa aqui");
+            Page.TextoIzquierda("Un Simple Texto");
             Page.AgregarLineas();
-            Page.Titulo();
+            Page.Header();
             Page.AddText("1", 10000, 20000, 10000, DateTime.Now.ToShortDateString());
             Page.AgregarLineas();
-        C: \Users\Oscar\Pictures\Sistema de Ventas
+            Page.TextoDerecha("Total de la Venta Registrada: 10.000.000$");
             Console.WriteLine(Page);
             Console.ReadKey();
         }

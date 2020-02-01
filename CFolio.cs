@@ -6,14 +6,49 @@ namespace Algorithmo_reporte
 {
     public class CFolio:IFolio
     {
-        StringBuilder Texto;// 100,000,000
-        int Extension = 100; //27,9,9,5
+        StringBuilder Texto;
+        int Extension = 100; 
         string LineType = "-";
         string Border = "|";
+        //Calcular aqui segun requerimientos, Recurden, La Suma de estas Variables siempre debe ser igual a el valor de la variable Extension
         int numL = 15, totalL = 20, entreaL = 20, cambioL = 20, fechaL = 25;
         public CFolio()
         {
             Texto = new StringBuilder();
+        }
+        //Sorry por repetir codigo aqui, pero no encuentro forma de crear un metodo y 
+        //agregar el texto sin necesidad de tener el mismo codigo en AgregarTextoCentro y este metodo
+        public void AgregarTexto(string texto)
+        {
+            var FinalText = string.Empty;
+            var MaxLong =Extension;
+            var TotalText = (int)0;
+            if (texto.Length > MaxLong)
+            {
+                int x = (texto.Length / MaxLong);
+                int Resto = 0;
+                if (x > 0)
+                {
+                    if ((texto.Length % MaxLong) > 0)
+                    {
+                        Resto = (texto.Length % MaxLong);
+                    }
+                    for (int i = 0; i < x; i++)
+                    {
+                        FinalText += texto.Substring(TotalText, MaxLong);
+                        Texto.AppendLine(FinalText);
+                        FinalText = "";
+                        TotalText += MaxLong;
+                    }
+                }
+                FinalText += texto.Substring(TotalText, Resto);
+                this.Texto.AppendLine(FinalText);
+            }
+            else
+            {
+                FinalText = texto;
+                Texto.AppendLine(FinalText);
+            }
         }
         public void AgregarTextoCentro(string texto)
         {
@@ -64,13 +99,7 @@ namespace Algorithmo_reporte
         }
         public void TextoIzquierda(string texto)
         {
-            var FinalText = string.Empty;
-            for (int i = texto.Length; i < Extension; i++)
-            {
-                FinalText += " ";
-            }
-            FinalText += texto;
-            Texto.AppendLine(FinalText);
+            Texto.AppendLine(texto);
         }
         public void TextoDerecha(string texto)
         {
@@ -81,21 +110,6 @@ namespace Algorithmo_reporte
             }
             FinalText += texto;
             Texto.AppendLine(FinalText);
-        }
-        public void Titulo()
-        {
-            string num = "NUM. VENTA";
-            string tot = "TOT. VENTA";
-            string entr = "ENT. VENTA";
-            string cam = "CAMBIO. VENTA";
-            string fech = "FECHA. VENTA";
-            var TextoCompleto = GetTextFormat(num, numL)
-                + GetTextFormat(tot, totalL)
-                + GetTextFormat(entr, entreaL)
-                + GetTextFormat(cam, cambioL)
-                + GetTextFormat(fech, fechaL);
-            Texto.AppendLine(TextoCompleto
-              );
         }
         public IFolio AddText(params object[] parametros)
         {
@@ -160,6 +174,18 @@ namespace Algorithmo_reporte
 
         public IFolio Header()
         {
+            string num = Border+"NUM. VENTA";
+            string tot = "TOT. VENTA";
+            string entr = "ENT. VENTA";
+            string cam = "CAMBIO. VENTA";
+            string fech = "FECHA. VENTA";
+            var TextoCompleto = GetTextFormat(num, numL)
+                + GetTextFormat(tot, totalL)
+                + GetTextFormat(entr, entreaL)
+                + GetTextFormat(cam, cambioL)
+                + GetTextFormat(fech, fechaL);
+            Texto.AppendLine(TextoCompleto
+              );
             return this;
         }
     }
